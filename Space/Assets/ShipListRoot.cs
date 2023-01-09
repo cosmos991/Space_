@@ -26,6 +26,7 @@ public class ShipListRoot : MonoBehaviour
         btnNext.onClick.AddListener(() =>OnTouchBTNNext());
         btnPrev.onClick.AddListener(()=>OnTouchBTNPrev());
 
+        StartView();
     }
 
     void OnTouchBTNNext()
@@ -45,11 +46,11 @@ public class ShipListRoot : MonoBehaviour
         }
 
         SetDisplayShipPos();
+        SetActiveElement();
     }
 
     public void OnTouchBTNPrev()
     {
-        Debug.Log("?");
         if (bIsMove)
             return;
 
@@ -65,6 +66,7 @@ public class ShipListRoot : MonoBehaviour
         }
 
         SetDisplayShipPos();
+        SetActiveElement();
     }
 
     void SetDisplayShipPos()
@@ -76,6 +78,21 @@ public class ShipListRoot : MonoBehaviour
         Debug.Log(vTo);
 
         StartCoroutine(GoMovement());
+    }
+
+    void SetActiveElement()
+    {
+        for(int i=0;i<listShipViewElement.Count;i++)
+        {
+            if(i == nNowIndex)
+            {
+                listShipViewElement[i].SetActive();
+            }
+            else
+            {
+                listShipViewElement[i].SetDeActive();
+            }
+        }
     }
 
     IEnumerator GoMovement()
@@ -97,4 +114,28 @@ public class ShipListRoot : MonoBehaviour
     }
 
 
+    public List<ShipViewElement> listShipViewElement = new List<ShipViewElement>();
+    public void SetObject()
+    {
+
+    }
+
+    public void StartView()
+    {
+        for(int i=0;i<ShipContainer.Ship.listShipData.Count;i++)
+        {
+            listShipViewElement[i].SetUI(ShipContainer.Ship.listShipData[i], UpdateShip);
+            listShipViewElement[i].SetEnable(true);
+        }
+
+        for(int i=ShipContainer.Ship.listShipData.Count ;i <listShipViewElement.Count;i++)
+        {
+            listShipViewElement[i].SetEnable(false);
+        }
+    }
+
+    void UpdateShip()
+    {
+
+    }
 }

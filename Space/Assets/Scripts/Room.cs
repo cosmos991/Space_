@@ -5,14 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public string name;
+    public int id;
 
-    protected virtual void SetObject()
-    {
-
-    }
-
-    protected virtual void SetState()
-    {
-
-    }
+    public ROOM_TYPE roomType;
 }
